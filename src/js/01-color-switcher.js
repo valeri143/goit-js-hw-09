@@ -11,10 +11,10 @@ function getRandomHexColor() {
   }
 
 function onStart(){
-   timerId = setInterval(()=> {
-bodyBackground.style.backgroundColor = getRandomHexColor();
 btnStart.disabled = true
 btnStop.disabled = false
+   timerId = setInterval(()=> {
+bodyBackground.style.backgroundColor = getRandomHexColor();
     },1000)
 }  
 function onStop(){
