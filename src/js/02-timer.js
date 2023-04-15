@@ -8,7 +8,7 @@ const days = document.querySelector('[data-days]');
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]')
-
+let timerId = null;
 
 const options = {
     enableTime: true,
@@ -25,18 +25,23 @@ const options = {
       function onStartTimer(){
         btnStart.disabled = true;
         input.disabled = true
-        setInterval(() => {
+        const timerId = setInterval(() => {
             const choosedDate = selectedDates[0].getTime();
             const date = Date.now()
             const differenceOfDates = choosedDate - date;
             const formattedDate = convertMs(differenceOfDates);
+            if(differenceOfDates <= 0){
+              clearInterval(timerId);
+              btnStart.disabled = false;
+              input.disabled = false;
+              return;
+            }
            days.textContent = addLeadingZero(formattedDate.days);
            hours.textContent = addLeadingZero(formattedDate.hours);
            minutes.textContent = addLeadingZero(formattedDate.minutes);
            seconds.textContent = addLeadingZero(formattedDate.seconds);
         },1000)
       }
-    
     },
   };
   flatpickr("#datetime-picker", options);
